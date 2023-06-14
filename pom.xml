@@ -8,6 +8,12 @@
   <name>hospital_management Maven Webapp</name>
   <url>http://maven.apache.org</url>
  <dependencies>
+ 
+<dependency>
+    <groupId>commons-codec</groupId>
+    <artifactId>commons-codec</artifactId>
+    <version>1.15</version>
+</dependency>
   
   <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <dependency>

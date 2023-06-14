@@ -76,6 +76,26 @@ public class MyDao {
 			return list.get(0);
 		}
 	}
+	
+	public Patient fetchPatient(long mobile) {
+		List<Patient> list = manager.createQuery("select x from Patient x where mobile=?1").setParameter(1, mobile)
+				.getResultList();
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}
+
+	public Patient fetchPatient(String email) {
+		List<Patient> list = manager.createNativeQuery("select * from patient where email=?1").setParameter(1, email)
+				.getResultList();
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}
 	// since id is primarykey we can use find method r else it is not a primary
 	// key we use above method
 
@@ -85,6 +105,10 @@ public class MyDao {
 
 	public Doctor fetchDoctor(int id) {
 		return manager.find(Doctor.class, id);
+	}
+	
+	public Patient fetchPatient(int id) {
+		return manager.find(Patient.class, id);
 	}
 	
 	public void updateStaff(Staff staff) {
@@ -100,12 +124,27 @@ public class MyDao {
 
 	}
 	
-	public List<Doctor> fetchAllDoctor(){
-		return manager.createQuery("select x from Doctor x").getResultList();
+	public void updatePatient(Patient patient) {
+		transcation.begin();
+		manager.merge(patient);
+		transcation.commit();
+
 	}
 	
 	public List<Staff> fetchAllStaff(){
 		return manager.createQuery("select x from Staff x").getResultList();
+	}
+	
+	public List<Doctor> fetchAllDoctor(){
+		return manager.createQuery("select x from Doctor x").getResultList();
+	}
+	
+	public List<Patient> fetchAllPatient(){
+		return manager.createQuery("select x from Patient x").getResultList();
+	}
+	
+	public List<Doctor> fetchAvailableDoctor(){
+		return manager.createQuery("select x from Doctor x where available=true").getResultList();
 	}
 
 }

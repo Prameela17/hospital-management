@@ -59,6 +59,7 @@ public class Login extends HttpServlet {
 			}
 			if (id == 999999) {
 				if ("999999".equals(password)) {
+					req.getSession().setAttribute("admin", "admin");
 					resp.getWriter().print("<h1 style='color:green'>Login Success</h1>");
 					req.getRequestDispatcher("AdminHome.html").include(req, resp);
 				} else {

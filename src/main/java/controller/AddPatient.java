@@ -18,29 +18,37 @@ import dto.Patient;
 
 @WebServlet("/addpatient")
 @MultipartConfig
-public class AddPatient extends HttpServlet{
+public class AddPatient extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String name = req.getParameter("name");
 		Long mobile = Long.parseLong(req.getParameter("mobile"));
 		Date dob = Date.valueOf(req.getParameter("dob"));
 		int age = Period.between(dob.toLocalDate(), LocalDate.now()).getYears();
-		Part picture=req.getPart("picture");
-		byte[] image=new byte[picture.getInputStream().available()];
+		Part picture = req.getPart("picture");
+		byte[] image = new byte[picture.getInputStream().available()];
 		picture.getInputStream().read(image);
-		Patient patient=new Patient();
-		patient.setName(name);
-		patient.setMobile(mobile);
-		patient.setDob(dob);
-		patient.setAge(age);
-		patient.setPicture(image);
-		
+
 		MyDao dao = new MyDao();
-		dao.savePatient(patient);
-		
-		res.getWriter().print("<h1 style='color:green'>Data Added Successfully</h1>");
-		req.getRequestDispatcher("StaffHome.html").include(req, res);
-		
+		Patient patient1 = dao.fetchPatient(mobile);
+		if (patient1 == null) {
+			Patient patient = new Patient();
+			patient.setName(name);
+			patient.setMobile(mobile);
+			patient.setDob(dob);
+			patient.setAge(age);
+			patient.setPicture(image);
+
+			dao.savePatient(patient);
+
+			res.getWriter().print("<h1 style='color:green'>Patient Data Added Successfully</h1>");
+			req.getRequestDispatcher("StaffHome.html").include(req, res);
+		}
+		else{
+			res.getWriter().print("<h1 style='color:red'>Mobile Number Should be Unique</h1>");
+			req.getRequestDispatcher("AddPatient.html").include(req, res);
+		}
+
 	}
 
 }

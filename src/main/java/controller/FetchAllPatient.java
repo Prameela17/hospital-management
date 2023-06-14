@@ -12,24 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import dao.MyDao;
 import dto.Staff;
 
-@WebServlet("/fetchallstaff")
-public class FetchAllStaff extends HttpServlet {
+@WebServlet("/fetchallpatient")
+public class FetchAllPatient extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		if (req.getSession().getAttribute("admin") != null) {
+		if (req.getSession().getAttribute("staff") == null){
+			res.getWriter().print("<h1 style='color:red'>Session expired</h1>");
+			req.getRequestDispatcher("Login.html").include(req, res);
+		}else{
 			MyDao dao = new MyDao();
 			List<Staff> list = dao.fetchAllStaff();
 			if (list.isEmpty()) {
-				res.getWriter().print("<h1 style='color:red'>No Staff has Signed Up</h1>");
+				res.getWriter().print("<h1 style='color:red'>No Patient data found</h1>");
 				req.getRequestDispatcher("AdminHome.html").include(req, res);
-			} else {
+			}else{
 				req.setAttribute("list", list);
-				req.getRequestDispatcher("ApproveStaff.jsp").forward(req, res);
+				req.getRequestDispatcher("PatientList.jsp").forward(req, res);
 			}
-		}
-		else{
-			res.getWriter().print("<h1 style='color:yellow'>Session expired,Login again</h1>");
-			req.getRequestDispatcher("Login.html").include(req, res);
 		}
 	}
 }
