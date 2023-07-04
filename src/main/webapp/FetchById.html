@@ -4,11 +4,88 @@
 <meta charset="ISO-8859-1">
 <title>FetchById</title>
 </head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        width: 100%;
+        height: 100vh;
+        background-image: url(images/R.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    h1{
+        padding: 120px 0;
+        color: lime;
+        margin: 0 0 0 200px;
+    }
+    .canva{
+            width: 85%;
+            height: 50px;
+            color: white;
+            margin: -340px 0 0 -250px;
+            padding: 260px 0;
+            font-size: large;
+            font-weight: bold;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #item1{
+            height: 28px;
+            width: 30%;
+            position: relative;
+            top: 5px;
+            left: 20px;
+            margin: 10px;
+            background-color:rgb(243, 189, 54);
+            border-color: rgb(243, 189, 54);
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 10px 10px 5px;
+        }
+        #item2{
+           height: 29px;
+            width: 33%;
+            position: relative;
+            top: 5px;
+            left: 20px;
+            margin: 10px;
+            background-color:rgb(243, 189, 54);
+            border-color: rgb(243, 189, 54);
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 10px 10px 5px;
+        }
+        .canva1 button{
+            height: 30px;
+            width: 100px;
+            position: relative;
+            top: -230px;
+            left: 260px;
+            margin: 10px;
+            background-color: palevioletred;
+            border-color: palevioletred;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 10px 10px 5px;
+        }
+</style>
 <body>
-<form action="AppointmentForm.jsp">
-Enter Id:<input type="text" name="id"><button>Book</button>
-</form>
-<br><br>
-<a href="BookAppointment.jsp"><button>Back</button></a>
+    <h1><u>Fetch Patient By ID</u></h1>
+    <div class="canva">
+        <form action="AppointmentForm.jsp">
+            Enter Id:<input type="text" name="id"><br>
+            <button id="item1" type="reset">Cancel</button>
+            <button id="item2">Book</button>
+        </form>
+    </div>
+    <div class="canva1">
+        <a href="BookAppointment.jsp"><button>Back</button></a>
+    </div>
 </body>
 </html>

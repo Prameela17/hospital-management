@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import dto.Appointment;
 import dto.Doctor;
 import dto.Patient;
 import dto.Staff;
@@ -35,6 +36,12 @@ public class MyDao {
 		manager.persist(patient);
 		transcation.commit();
 
+	}
+	
+	public void saveAppointment(Appointment appointment){
+		transcation.begin();
+		manager.persist(appointment);
+		transcation.commit();
 	}
 
 	public Staff fetchStaff(long mobile) {
@@ -111,6 +118,10 @@ public class MyDao {
 		return manager.find(Patient.class, id);
 	}
 	
+	public Appointment fetchAppointment(int id) {
+		return manager.find(Appointment.class, id);
+	}
+	
 	public void updateStaff(Staff staff) {
 		transcation.begin();
 		manager.merge(staff);
@@ -129,6 +140,12 @@ public class MyDao {
 		manager.merge(patient);
 		transcation.commit();
 
+	}
+	
+	public void updateAppointment(Appointment appointment) {
+		transcation.begin();
+		manager.merge(appointment);
+		transcation.commit();
 	}
 	
 	public List<Staff> fetchAllStaff(){
